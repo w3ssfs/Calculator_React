@@ -36,8 +36,10 @@ export default class Calculator extends Component {
 
             if (equals) {
                 const result = this.calculate()
-                this.setState({ values: [result, 0], displayValue: result, 
-                    clearDisplay: true, operation: currentOperation, current: equals ? 0 : 1 })
+                this.setState({
+                    values: [result, 0], displayValue: result,
+                    clearDisplay: true, operation: currentOperation, current: equals ? 0 : 1
+                })
 
             } else {
                 this.setState({ operation, current: 1, clearDisplay: true })
@@ -51,11 +53,15 @@ export default class Calculator extends Component {
         if (operation === '-') return values[0] - values[1]
         if (operation === '*') return values[0] * values[1]
         if (operation === '/') return values[0] / values[1]
+        if (isNaN(values[0]) || !isFinite(values[0])) {
+            this.clearMemory()
+            return
+        }
         return 0
     }
 
     addDigit(n) {
-        if (n==='.' && this.state.displayValue.includes('.')) {
+        if (n === '.' && this.state.displayValue.includes('.')) {
             return
         }
 
@@ -75,29 +81,29 @@ export default class Calculator extends Component {
     }
 
     render() {
-        
+
         const clearMemory = () => this.clearMemory()
         return (
             <div className="calculator">
-                <Display value={this.state.displayValue}/>
-                <Button label="AC" click={clearMemory} triple/>
-                <Button label="/" click={this.setOperation} operation/>
-                <Button label="7" click={this.addDigit}/>
-                <Button label="8" click={this.addDigit}/>
-                <Button label="9" click={this.addDigit}/>
-                <Button label="*" click={this.setOperation} operation/>
-                <Button label="4" click={this.addDigit}/>
-                <Button label="5" click={this.addDigit}/>
-                <Button label="6" click={this.addDigit}/>
-                <Button label="-" click={this.setOperation} operation/>
-                <Button label="1" click={this.addDigit}/>
-                <Button label="2" click={this.addDigit}/>
-                <Button label="3" click={this.addDigit}/>
-                <Button label="+" click={this.setOperation} operation/>
-                <Button label="0" click={this.addDigit} double/>
-                <Button label="." click={this.addDigit}/>
-                <Button label="=" click={this.setOperation} operation/>
-                
+                <Display value={this.state.displayValue} />
+                <Button label="AC" click={clearMemory} triple />
+                <Button label="/" click={this.setOperation} operation />
+                <Button label="7" click={this.addDigit} />
+                <Button label="8" click={this.addDigit} />
+                <Button label="9" click={this.addDigit} />
+                <Button label="*" click={this.setOperation} operation />
+                <Button label="4" click={this.addDigit} />
+                <Button label="5" click={this.addDigit} />
+                <Button label="6" click={this.addDigit} />
+                <Button label="-" click={this.setOperation} operation />
+                <Button label="1" click={this.addDigit} />
+                <Button label="2" click={this.addDigit} />
+                <Button label="3" click={this.addDigit} />
+                <Button label="+" click={this.setOperation} operation />
+                <Button label="0" click={this.addDigit} double />
+                <Button label="." click={this.addDigit} />
+                <Button label="=" click={this.setOperation} operation />
+
             </div>
         )
     }
